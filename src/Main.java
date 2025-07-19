@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-////////////dadddf///////////////
 public class Main {
     public static void main(String[] args) throws IOException {
         List<Task> allTask = new ArrayList<>();
@@ -77,7 +76,7 @@ public class Main {
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
-
+        System.out.println("Salah");
 
     }
 }
