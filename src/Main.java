@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -15,10 +14,11 @@ public class Main {
         //    LocalDateTime now = LocalDateTime.now();
         Scanner scanner = new Scanner(System.in);
 
-        addTasks(scanner,allTask,toDoTask,doneTask,inProgressTask);
+        addTasks(scanner, allTask, toDoTask, doneTask, inProgressTask);
     }
+
     public static void addTasks(Scanner scanner, List<Task> allTask,
-                                        List<Task> toDoTask, List<Task> doneTask, List<Task> inProgressTask) {
+                                List<Task> toDoTask, List<Task> doneTask, List<Task> inProgressTask) {
 
         boolean check = true;
         int i = 0;
@@ -85,4 +85,27 @@ public class Main {
         }
 
     }
+
+    public static void removeTask(Scanner scanner, List<Task> allTask,
+                                  List<Task> toDoTask, List<Task> doneTask, List<Task> inProgressTask) {
+
+        for (int i = 0; i < allTask.size(); i++) {
+            int remove = scanner.nextInt();
+            if (remove == allTask.get(i).getId()) {
+                if (allTask.get(i).getStatus().equals("todo")) {
+                    allTask.remove(i);
+                    toDoTask.remove(i);
+                } else if (allTask.get(i).getStatus().equals("done")) {
+                    allTask.remove(i);
+                    doneTask.remove(i);
+                } else if (allTask.get(i).getStatus().equals("in-progress")) {
+                    allTask.remove(i);
+                    inProgressTask.remove(i);
+                } else {
+                    System.out.println("no correct status");
+                }
+            }
+        }
+
     }
+}
