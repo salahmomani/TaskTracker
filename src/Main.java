@@ -14,6 +14,12 @@ public class Main {
         List<Task> inProgressTask = new ArrayList<>();
         //    LocalDateTime now = LocalDateTime.now();
         Scanner scanner = new Scanner(System.in);
+
+        addTasks(scanner,allTask,toDoTask,doneTask,inProgressTask);
+    }
+    public static void addTasks(Scanner scanner, List<Task> allTask,
+                                        List<Task> toDoTask, List<Task> doneTask, List<Task> inProgressTask) {
+
         boolean check = true;
         int i = 0;
         while (check) {
@@ -79,4 +85,4 @@ public class Main {
         }
 
     }
-}
+    }
