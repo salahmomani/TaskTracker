@@ -76,7 +76,6 @@ public class Main {
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
-        System.out.println("Salah");
 
     }
 }
