@@ -19,15 +19,20 @@ public class Main {
             switch (option) {
                 case "add":
                     addTasks(scanner, allTask, toDoTask, doneTask, inProgressTask);
+                    saveTasksToJsonFile(allTask, "Task.json");
                     break;
                 case "delete":
                     removeTask(scanner, allTask, toDoTask, doneTask, inProgressTask);
+                    saveTasksToJsonFile(allTask, "Task.json");
+
                     break;
                 case "mark-in-progress":
                     markInProgress(scanner, allTask, toDoTask, doneTask, inProgressTask);
+                    saveTasksToJsonFile(allTask, "Task.json");
                     break;
                 case "mark-done":
                     markDone(scanner, allTask, toDoTask, doneTask, inProgressTask);
+                    saveTasksToJsonFile(allTask, "Task.json");
                     break;
                 case "List":
                     showAllTask(allTask);
@@ -50,6 +55,21 @@ public class Main {
         }
     }
 
+    public static void saveTasksToJsonFile(List<Task> allTasks, String fileName) {
+        try (FileWriter fileWriter = new FileWriter(fileName)) {
+            fileWriter.write("[\n");
+            for (int i = 0; i < allTasks.size(); i++) {
+                fileWriter.write(allTasks.get(i).toJson());
+                if (i < allTasks.size() - 1) {
+                    fileWriter.write(",\n");
+                }
+            }
+            fileWriter.write("\n]");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void addTasks(Scanner scanner, List<Task> allTask,
                                 List<Task> toDoTask, List<Task> doneTask, List<Task> inProgressTask) {
         int ID = 1;
@@ -57,7 +77,7 @@ public class Main {
         int i = 0;
         while (check) {
             //System.out.println("\nEnter details for task " + (i + 1));
-            //System.out.print("Description: ");
+            System.out.print("Description: ");
             String description = scanner.nextLine();
             //System.out.print("Status (todo/in-progress/done): ");
             String status = "todo";
@@ -94,17 +114,18 @@ public class Main {
             }
             i++;
             ID++;
-        }
-        try (FileWriter fileWriter = new FileWriter("Task.json")) {
-            fileWriter.write("[\n");
-            for (int j = 0; j < allTask.size(); j++) {
-                fileWriter.write(allTask.get(j).toJson());
-                if (j < allTask.size() - 1)
-                    fileWriter.write(",\n");
-            }
-            fileWriter.write("\n]");
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
+//        }
+//        try (FileWriter fileWriter = new FileWriter("Task.json")) {
+//            fileWriter.write("[\n");
+//            for (int j = 0; j < allTask.size(); j++) {
+//                fileWriter.write(allTask.get(j).toJson());
+//                if (j < allTask.size() - 1)
+//                    fileWriter.write(",\n");
+//            }
+//            fileWriter.write("\n]");
+//        } catch (IOException ioException) {
+//            ioException.printStackTrace();
+//        }
         }
     }
 
@@ -128,18 +149,18 @@ public class Main {
             } else {
                 System.out.println("task not found");
             }
-
-            try (FileWriter fileWriter = new FileWriter("Task.json")) {
-                fileWriter.write("[\n");
-                for (int j = 0; j < allTask.size(); j++) {
-                    fileWriter.write(allTask.get(j).toJson());
-                    if (j < allTask.size() - 1)
-                        fileWriter.write(",\n");
-                }
-                fileWriter.write("\n]");
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+//
+//            try (FileWriter fileWriter = new FileWriter("Task.json")) {
+//                fileWriter.write("[\n");
+//                for (int j = 0; j < allTask.size(); j++) {
+//                    fileWriter.write(allTask.get(j).toJson());
+//                    if (j < allTask.size() - 1)
+//                        fileWriter.write(",\n");
+//                }
+//                fileWriter.write("\n]");
+//            } catch (IOException ioException) {
+//                ioException.printStackTrace();
+//            }
         }
 
     }
@@ -170,12 +191,15 @@ public class Main {
 
     public static void markDone(Scanner scanner, List<Task> allTask,
                                 List<Task> toDoTask, List<Task> doneTask, List<Task> inProgressTask) {
+        System.out.println("ID for task");
         int ID = scanner.nextInt();
         for (Task t : doneTask) {
             if (ID == t.getId()) {
                 t.setStatus("Done");
+                t.setUpdateAt(LocalDateTime.now());
                 doneTask.add(t);
                 toDoTask.remove(t);
+                inProgressTask.remove(t);
             }
         }
 
@@ -183,12 +207,15 @@ public class Main {
 
     public static void markInProgress(Scanner scanner, List<Task> allTask,
                                       List<Task> toDoTask, List<Task> doneTask, List<Task> inProgressTask) {
+        System.out.println("ID for task");
         int ID = scanner.nextInt();
         for (Task t : doneTask) {
             if (ID == t.getId()) {
                 t.setStatus("in-progress");
+                t.setUpdateAt(LocalDateTime.now());
                 inProgressTask.add(t);
                 toDoTask.remove(t);
+                doneTask.remove(t);
             }
         }
 
