@@ -67,4 +67,15 @@ public class Task {
                 "  \"updateAt\": \"" + updateAt.toString() + "\"\n" +
                 "}";
     }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", status='" + status + '\'' +
+                ", createdAt=" + createdAt +
+                ", updateAt=" + updateAt +
+                '}';
+    }
 }
