@@ -19,31 +19,28 @@ public class Main {
             switch (option) {
                 case "add":
                     addTasks(scanner, allTask, toDoTask, doneTask, inProgressTask);
-                    saveTasksToJsonFile(allTask, "Task.json");
+
                     break;
                 case "delete":
                     removeTask(scanner, allTask, toDoTask, doneTask, inProgressTask);
-                    saveTasksToJsonFile(allTask, "Task.json");
 
                     break;
                 case "mark-in-progress":
                     markInProgress(scanner, allTask, toDoTask, doneTask, inProgressTask);
-                    saveTasksToJsonFile(allTask, "Task.json");
                     break;
                 case "mark-done":
                     markDone(scanner, allTask, toDoTask, doneTask, inProgressTask);
-                    saveTasksToJsonFile(allTask, "Task.json");
                     break;
-                case "List":
+                case "list":
                     showAllTask(allTask);
                     break;
-                case "List done":
+                case "list done":
                     showDoneTask(doneTask);
                     break;
-                case "List todo":
+                case "list todo":
                     showToDoTask(toDoTask);
                     break;
-                case "List in-progress":
+                case "list in-progress":
                     showInProgressTask(inProgressTask);
                     break;
                 case "exit":
@@ -72,6 +69,7 @@ public class Main {
 
     public static void addTasks(Scanner scanner, List<Task> allTask,
                                 List<Task> toDoTask, List<Task> doneTask, List<Task> inProgressTask) {
+
         int ID = 1;
         boolean check = true;
         int i = 0;
@@ -127,6 +125,7 @@ public class Main {
 //            ioException.printStackTrace();
 //        }
         }
+        saveTasksToJsonFile(allTask, "Task.json");
     }
 
     public static void removeTask(Scanner scanner, List<Task> allTask,
@@ -162,6 +161,7 @@ public class Main {
 //                ioException.printStackTrace();
 //            }
         }
+        saveTasksToJsonFile(allTask, "Task.json");
 
     }
 
@@ -193,31 +193,41 @@ public class Main {
                                 List<Task> toDoTask, List<Task> doneTask, List<Task> inProgressTask) {
         System.out.println("ID for task");
         int ID = scanner.nextInt();
-        for (Task t : doneTask) {
+        boolean found = false;
+        for (Task t : allTask) {
             if (ID == t.getId()) {
                 t.setStatus("Done");
                 t.setUpdateAt(LocalDateTime.now());
                 doneTask.add(t);
+                found = true;
                 toDoTask.remove(t);
                 inProgressTask.remove(t);
             }
+            if (!found) {
+                System.out.println("not found task");
+            }
         }
-
+        saveTasksToJsonFile(allTask, "Task.json");
     }
 
     public static void markInProgress(Scanner scanner, List<Task> allTask,
                                       List<Task> toDoTask, List<Task> doneTask, List<Task> inProgressTask) {
         System.out.println("ID for task");
         int ID = scanner.nextInt();
-        for (Task t : doneTask) {
+        boolean found = false;
+        for (Task t : allTask) {
             if (ID == t.getId()) {
                 t.setStatus("in-progress");
                 t.setUpdateAt(LocalDateTime.now());
                 inProgressTask.add(t);
                 toDoTask.remove(t);
+                found = true;
                 doneTask.remove(t);
             }
         }
-
+        if (!found) {
+            System.out.println("not found task");
+        }
+        saveTasksToJsonFile(allTask, "Task.json");
     }
 }
