@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class Main {
     public static void main(String[] args) throws IOException {
         List<Task> allTask = new ArrayList<>();
@@ -73,7 +74,6 @@ public class Main {
     public static void addTask(Scanner scanner, List<Task> allTask,
                                List<Task> toDoTask, List<Task> doneTask, List<Task> inProgressTask) {
         int id = allTask.size() + 1;
-        boolean check = false;
         //System.out.print("Description: ");
         String description = scanner.nextLine();
         String status = "todo";
