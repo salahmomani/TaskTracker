@@ -108,17 +108,22 @@ public class Main {
                 if (allTask.get(i).getStatus().equals("todo")) {
                     allTask.remove(i);
                     toDoTask.remove(i);
+                    break;
                 } else if (allTask.get(i).getStatus().equals("done")) {
                     allTask.remove(i);
                     doneTask.remove(i);
+                    break;
                 } else if (allTask.get(i).getStatus().equals("in-progress")) {
                     allTask.remove(i);
                     inProgressTask.remove(i);
+                    break;
                 } else {
                     System.out.println("no correct status");
+                    break;
                 }
             } else {
                 System.out.println("task not found");
+                break;
             }
         }
         saveTasksToJsonFile(allTask, "Task.json");
