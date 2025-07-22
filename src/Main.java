@@ -70,6 +70,36 @@ public class Main {
         }
     }
 
+    public static void addTask(Scanner scanner, List<Task> allTask,
+                               List<Task> toDoTask, List<Task> doneTask, List<Task> inProgressTask) {
+        int id = allTask.size() + 1;
+        boolean check = false;
+        //System.out.print("Description: ");
+        String description = scanner.nextLine();
+        String status = "todo";
+        LocalDateTime now = LocalDateTime.now();
+        Task task = new Task(id, description, status, now, now);
+        allTask.add(task);
+        toDoTask.add(task);
+        saveTasksToJsonFile(allTask, "Task.json");
+    }
+
+    public static void updateTask(Scanner scanner, List<Task> allTask,
+                                  List<Task> toDoTask, List<Task> doneTask, List<Task> inProgressTask) {
+        //System.out.println("id");
+        int updateTask = scanner.nextInt();
+        //System.out.println("desc");
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String newDescription = scanner.next();
+        for (int i = 0; i < allTask.size(); i++) {
+            if (allTask.get(i).getId() == updateTask) {
+                allTask.get(i).setDescription(newDescription);
+                allTask.get(i).setUpdateAt(localDateTime);
+            }
+        }
+        saveTasksToJsonFile(allTask, "Task.json");
+    }
+
     public static void removeTask(Scanner scanner, List<Task> allTask,
                                   List<Task> toDoTask, List<Task> doneTask, List<Task> inProgressTask) {
         int remove = scanner.nextInt();
@@ -121,7 +151,7 @@ public class Main {
 
     public static void markDone(Scanner scanner, List<Task> allTask,
                                 List<Task> toDoTask, List<Task> doneTask, List<Task> inProgressTask) {
-        System.out.println("ID for task");
+        //    System.out.println("ID for task");
         int ID = scanner.nextInt();
         boolean found = false;
         for (Task t : allTask) {
@@ -142,7 +172,7 @@ public class Main {
 
     public static void markInProgress(Scanner scanner, List<Task> allTask,
                                       List<Task> toDoTask, List<Task> doneTask, List<Task> inProgressTask) {
-        System.out.println("ID for task");
+        //  System.out.println("ID for task");
         int ID = scanner.nextInt();
         boolean found = false;
         for (Task t : allTask) {
@@ -161,33 +191,5 @@ public class Main {
         saveTasksToJsonFile(allTask, "Task.json");
     }
 
-    public static void addTask(Scanner scanner, List<Task> allTask,
-                               List<Task> toDoTask, List<Task> doneTask, List<Task> inProgressTask) {
-        int id = allTask.size() + 1;
-        boolean check = false;
-        System.out.print("Description: ");
-        String description = scanner.nextLine();
-        String status = "todo";
-        LocalDateTime now = LocalDateTime.now();
-        Task task = new Task(id, description, status, now, now);
-        allTask.add(task);
-        toDoTask.add(task);
-        saveTasksToJsonFile(allTask, "Task.json");
-    }
 
-    public static void updateTask(Scanner scanner, List<Task> allTask,
-                                  List<Task> toDoTask, List<Task> doneTask, List<Task> inProgressTask) {
-        System.out.println("id");
-        int updateTask = scanner.nextInt();
-        System.out.println("desc");
-        LocalDateTime localDateTime=LocalDateTime.now();
-        String newDescription = scanner.next();
-        for (int i = 0; i < allTask.size(); i++) {
-            if (allTask.get(i).getId() == updateTask) {
-                allTask.get(i).setDescription(newDescription);
-                allTask.get(i).setUpdateAt(localDateTime);
-            }
-        }
-        saveTasksToJsonFile(allTask, "Task.json");
-    }
 }
