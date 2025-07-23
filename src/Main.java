@@ -88,9 +88,11 @@ public class Main {
                                   List<Task> toDoTask, List<Task> doneTask, List<Task> inProgressTask) {
         //System.out.println("id");
         int updateTask = scanner.nextInt();
+        scanner.nextLine();
         //System.out.println("desc");
         LocalDateTime localDateTime = LocalDateTime.now();
         String newDescription = scanner.next();
+        scanner.nextLine();
         for (int i = 0; i < allTask.size(); i++) {
             if (allTask.get(i).getId() == updateTask) {
                 allTask.get(i).setDescription(newDescription);
@@ -103,6 +105,7 @@ public class Main {
     public static void removeTask(Scanner scanner, List<Task> allTask,
                                   List<Task> toDoTask, List<Task> doneTask, List<Task> inProgressTask) {
         int remove = scanner.nextInt();
+        scanner.nextLine();
         for (int i = 0; i < allTask.size(); i++) {
             if (remove == allTask.get(i).getId()) {
                 if (allTask.get(i).getStatus().equals("todo")) {
@@ -158,6 +161,7 @@ public class Main {
                                 List<Task> toDoTask, List<Task> doneTask, List<Task> inProgressTask) {
         //    System.out.println("ID for task");
         int ID = scanner.nextInt();
+        scanner.nextLine();
         boolean found = false;
         for (Task t : allTask) {
             if (ID == t.getId()) {
@@ -179,6 +183,8 @@ public class Main {
                                       List<Task> toDoTask, List<Task> doneTask, List<Task> inProgressTask) {
         //  System.out.println("ID for task");
         int ID = scanner.nextInt();
+        scanner.nextLine();
+
         boolean found = false;
         for (Task t : allTask) {
             if (ID == t.getId()) {
